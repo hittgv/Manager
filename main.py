@@ -4,6 +4,8 @@ from flask import Flask
 from flask import request
 import json
 
+from collectAlexaFeatures import collectAlexaFeatures
+
 app = Flask(__name__)
 
 
@@ -12,10 +14,14 @@ def hello():
     url =  json.loads(request.data)['url']
     page = requests.get(url)
     tree = html.fromstring(page.content)
+    payload = {
+#        "HTML":page.text,
+        "url":str(url)
+        }
 
-    # DO ALL MY FEATURE GENERATION STUFF
-    # Call Dave's service
-    # give him page.text
+    headers = {"Content-Type":"application/json"}
+
+    alexa = collectAlexaFeatures("http://localhost:3000", payload, headers)
 
     # Score page based on features
     
@@ -25,10 +31,5 @@ def hello():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-    
     # title = tree.xpath('//title/text()')
-
     # header = tree.xpath('//h1/text()')
