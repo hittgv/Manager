@@ -3,7 +3,10 @@ import requests
 from flask import Flask
 from flask import request
 import json
-
+import sklearn
+import pandas as pd
+import numpy as np
+# user defined functions
 from functions import *
 
 app = Flask(__name__)
@@ -21,11 +24,12 @@ def hello():
 
     headers = {"Content-Type":"application/json"}
 
+    # alexa data frame
     alexa = collectAlexaFeatures("http://localhost:3000", payload, headers)
 
-    print alexa
+    #join all data frames together, using URL as the key (or just colbind...)
 
-    # Score page based on features
+    # put data through predefined scorecard
     
     score = 9
 
