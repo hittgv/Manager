@@ -4,7 +4,7 @@ from flask import Flask
 from flask import request
 import json
 
-from collectAlexaFeatures import collectAlexaFeatures
+from functions import *
 
 app = Flask(__name__)
 
@@ -22,6 +22,8 @@ def hello():
     headers = {"Content-Type":"application/json"}
 
     alexa = collectAlexaFeatures("http://localhost:3000", payload, headers)
+
+    print alexa
 
     # Score page based on features
     
