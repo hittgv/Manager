@@ -1,13 +1,11 @@
-from lxml import html
-import requests
-from flask import Flask
-from flask import request
 import json
-import sklearn
+
 import numpy as np
 import pandas as pd
-
-
+import requests
+import sklearn
+from flask import Flask, request
+from lxml import html
 
 
 def collectAlexaFeatures(featureUrl, payload, headers):
@@ -16,7 +14,7 @@ def collectAlexaFeatures(featureUrl, payload, headers):
         data=json.dumps(payload),
         headers=headers
         )
-    alexa =  json.loads(str(r.text))
+    alexa = json.loads(str(r.text))
 
     alexa_engagement = alexa['engagement']
     alexa_countryRank = alexa['countryRank']
@@ -28,3 +26,15 @@ def collectAlexaFeatures(featureUrl, payload, headers):
     
     #return the dataframe
     return alexa_df
+
+def collectAdsFeatures(featureUrl, payload, headers):
+    r = requests.post(
+        featureUrl,
+        data=json.dumps(payload),
+        headers=headers
+        )
+    ads = json.loads(str(r.text))
+
+    return pd.DataFrame({'url':payload['url']}, index=[0])
+
+    return ads

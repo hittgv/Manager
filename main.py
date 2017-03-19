@@ -1,12 +1,13 @@
-from lxml import html
-import requests
-from flask import Flask
-from flask import request
 import json
-import sklearn
-import pandas as pd
+from multiprocessing import Pool
+
 import numpy as np
-# user defined functions
+import pandas as pd
+import requests
+import sklearn
+from flask import Flask, request
+from lxml import html
+
 from functions import *
 
 app = Flask(__name__)
@@ -21,11 +22,26 @@ def hello():
 #        "HTML":page.text,
         "url":str(url)
         }
-
+    
     headers = {"Content-Type":"application/json"}
+    features = []
 
     # alexa data frame
     alexa = collectAlexaFeatures("http://localhost:3000", payload, headers)
+    ads = collectAdsFeatures("http://localhost:3000", payload, headers)
+
+    features.append(alexa)
+    features.append(ads)
+    feature_frame = pd.DataFrame({'url':payload['url']}, index=[0])
+
+    for i in range(len(features)):
+        # print feature_frame
+        # print features[i]
+        # print "---------"
+        feature_frame.merge(alexa, how='outer',left_on='url', right_on='url')
+
+    print(feature_frame)
+    print(alexa)
 
     #join all data frames together, using URL as the key (or just colbind...)
 
