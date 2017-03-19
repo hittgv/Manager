@@ -9,3 +9,4 @@ deploy:
   app: Manager
   on:
     repo: hittgv/Manager
+script: echo HELLO
