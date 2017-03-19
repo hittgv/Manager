@@ -37,7 +37,7 @@ def collectNumberOfAdverts(featureUrl, payload, headers):
     ads = json.loads(str(r.text))
     ads_dict = {'url': payload['url'], "numberOfAds": len(ads['crawl']['ads'])}
     ads_pagestats = ads['psi']['pageStats']
-    
+
     for key, value in ads_pagestats.iteritems():
         ads_dict[key] = value
     ads_df = pd.DataFrame(ads_dict, index=[0])
@@ -57,3 +57,15 @@ def collectBrokenLinks(featureUrl, payload, headers):
     deadLinks_df = pd.DataFrame(deadLinks_dict, index=[0])
 
     return deadLinks_df
+
+def collectSelflinks(featureUrl, payload, headers):
+    r = requests.post(
+        featureUrl,
+        data=json.dumps(payload),
+        headers=headers
+        )
+    selfLinks = json.loads(str(r.text))
+    deadLinks_dict = {'url': payload['url']}
+
+    print r.text
+    
