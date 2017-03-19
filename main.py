@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 # user defined functions
 from functions import *
+from scoreout import *
 
 app = Flask(__name__)
 
@@ -35,10 +36,10 @@ def hello():
     # join all data frames together, using URL as the key (or just colbind...)
     all_features = brokenlinks.merge(ads, how='inner', on='url').merge(alexa, how='inner', on='url').merge(selflinks, how='inner', on='url')
 
+    score = int(scoreArticle(all_features))
 
-    # put data through predefined scorecard
+    print(score)
 
-    score = 9
     return json.dumps({"assignedScore": score})
 
 
