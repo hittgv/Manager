@@ -1,0 +1,11 @@
+language: python
+python:
+- '2.7'
+install: pip install -r requirements.txt
+deploy:
+  provider: heroku
+  api_key:
+    secure: N7JnT4sV8cWjuZ19ANa2J/fxjBU7aGyo7hXXLuDZpkqkQnOkXtl4cIk1GdfqMnoILlML3vbFNPLji82TWXXTjFwry9EK6q0jtWIreKUhUpEoEFC3m131qALbvnN4qO4OgR9nk0iDEI+YQi106w0oVwtuDPp1t1k0exxvEIcuBl/taLpSX71IK8Nb+Fkqd6KQSbXJg9kpdMTrctG4EMhjapyAefdn3XhSTf5Wm6jb1t7+epgpYVCXNSaZduYllKEIC0hcP3cPjV5KHtHvnr0GX2Iqq1fgwg1R2RdinreSHB6dQ5qGhdZDlBRBD3+xAWEoGwxCM9AT2OBAs06eMZU/yP6XFjcB1CKDo/ziXOIKOlwHlofRVTEtZJllJsKRWiCqoZx60C4ATIsVhEMlqQAfNwoHAO0fh9LkGp7WpNC8e2tme/fmHqLHx4c8H+1e8npUfcnSRQNHozsytMWAUtRIElu5DTjqmh2nXB7Jq0XiGJNsuSmba+Fhq2LCt0shZR1Vw/LjdwTVFWMbVDZC4LFhxaZfBv0EfqtwCxm6Ut6Zj83WOZwAbB3H4TSbAmMMziPTvlaPcJKb7NGqz8fLMOTPCBDutMIpqtxm3r4Ed1919kRBqw5HiXGzNHuZJV4VfO8VIYRuEvdQfIbPsQrTqT70bXAb9qSvHjk5gmturBZPkcI=
+  app: Manager
+  on:
+    repo: hittgv/Manager
