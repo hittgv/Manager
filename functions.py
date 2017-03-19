@@ -65,7 +65,7 @@ def collectSelflinks(featureUrl, payload, headers):
         headers=headers
         )
     selfLinks = json.loads(str(r.text))
-    deadLinks_dict = {'url': payload['url']}
+    selfLinks_dict = {'url': payload['url'], 'internalLinks': selfLinks['internalLinks'], 'outboundLinks': selfLinks['externalLinks']}
+    selfLinks_df = pd.DataFrame(selfLinks_dict, index=[0])
 
-    print r.text
-    
+    return selfLinks_df

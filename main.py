@@ -50,12 +50,14 @@ def train():
         }
     headers = {"Content-Type": "application/json"}
 
+
+    selflinks = collectSelflinks(SELFLINKS, payload, headers)
     brokenlinks = collectBrokenLinks(DEADLINKS, payload, headers)
     alexa = collectAlexaFeatures(ALEXA, payload, headers)
     ads = collectNumberOfAdverts(ADCOUNT, payload, headers)
-    selflinks = collectSelflinks(SELFLINKS, payload, headers)
 
-    all_features = brokenlinks.merge(ads, how='inner', on='url').merge(alexa, how='inner', on='url')
+
+    all_features = brokenlinks.merge(ads, how='inner', on='url').merge(alexa, how='inner', on='url').merge(selflinks, how='inner', on='url')
 
     print "----_-___------"
 
