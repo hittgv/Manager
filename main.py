@@ -30,6 +30,9 @@ def hello():
     # alexa data frame
     alexa = collectAlexaFeatures(ALEXA, payload, headers)
     ads = collectNumberOfAdverts(ADCOUNT, payload, headers)
+    print(alexa)
+    print(ads)
+
     # join all data frames together, using URL as the key (or just colbind...)
 
     # put data through predefined scorecard

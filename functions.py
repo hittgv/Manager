@@ -35,5 +35,11 @@ def collectNumberOfAdverts(featureUrl, payload, headers):
         headers=headers
         )
     ads = json.loads(str(r.text))
-    print(ads)
+    ads_dict = {'url': payload['url'], "numberOfAds": len(ads['crawl']['ads'])}
+    ads_pagestats = ads['psi']['pageStats']
+    
+    for key, value in ads_pagestats.iteritems():
+        ads_dict[key] = value
+    ads_df = pd.DataFrame(ads_dict, index=[0])
 
+    return ads_df
