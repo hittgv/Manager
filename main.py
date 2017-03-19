@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 from sklearn.externals import joblib
 
-# user defined functions
+# User defined functions
 from functions import *
 from scoreout import *
 
