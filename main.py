@@ -33,7 +33,9 @@ def hello():
 
 
     # join all data frames together, using URL as the key (or just colbind...)
-    all_features = brokenlinks.merge(ads, how='inner', on='url').merge(alexa, how='inner', on='url')
+    all_features = brokenlinks.merge(ads, how='inner', on='url').merge(alexa, how='inner', on='url').merge(selflinks, how='inner', on='url')
+
+
     # put data through predefined scorecard
 
     score = 9
@@ -56,12 +58,8 @@ def train():
     alexa = collectAlexaFeatures(ALEXA, payload, headers)
     ads = collectNumberOfAdverts(ADCOUNT, payload, headers)
 
-
+    # could use pd.concat() to make this cleaner later.
     all_features = brokenlinks.merge(ads, how='inner', on='url').merge(alexa, how='inner', on='url').merge(selflinks, how='inner', on='url')
-
-    print "----_-___------"
-
-    print(all_features)
 
     return all_features.to_json(orient='records')
 
