@@ -3,7 +3,6 @@ import requests
 from flask import Flask
 from flask import request
 import json
-import sklearn
 import numpy as np
 import pandas as pd
 
