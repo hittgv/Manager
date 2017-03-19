@@ -21,15 +21,18 @@ SELFLINKS = 'https://self-link-service.herokuapp.com/'
 def hello():
     url = json.loads(request.data)['url']
     page = requests.get(url)
-    payload = {
+    payload_heavy = {
         "html": page.text,
+        "url": str(url)
+        }
+    payload_light = {
         "url": str(url)
         }
     headers = {"Content-Type": "application/json"}
 
-    brokenlinks = collectBrokenLinks(DEADLINKS, payload, headers)
-    alexa = collectAlexaFeatures(ALEXA, payload, headers)
-    selflinks = collectSelflinks(SELFLINKS, payload, headers)
+    brokenlinks = collectBrokenLinks(DEADLINKS, payload_heavy, headers)
+    alexa = collectAlexaFeatures(ALEXA, payload_light, headers)
+    selflinks = collectSelflinks(SELFLINKS, payload_heavy, headers)
 
 
     # join all data frames together, using URL as the key (or just colbind...)
@@ -46,16 +49,20 @@ def hello():
 def train():
     url = json.loads(request.data)['url']
     page = requests.get(url)
-    payload = {
+    payload_heavy = {
         "html": page.text,
+        "url": str(url)
+        }
+    payload_light = {
         "url": str(url)
         }
     headers = {"Content-Type": "application/json"}
 
 
-    selflinks = collectSelflinks(SELFLINKS, payload, headers)
-    brokenlinks = collectBrokenLinks(DEADLINKS, payload, headers)
-    alexa = collectAlexaFeatures(ALEXA, payload, headers)
+    brokenlinks = collectBrokenLinks(DEADLINKS, payload_heavy, headers)
+    alexa = collectAlexaFeatures(ALEXA, payload_light, headers)
+    selflinks = collectSelflinks(SELFLINKS, payload_heavy, headers)
+
 
 
     # could use pd.concat() to make this cleaner later.
