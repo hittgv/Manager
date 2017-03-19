@@ -43,3 +43,17 @@ def collectNumberOfAdverts(featureUrl, payload, headers):
     ads_df = pd.DataFrame(ads_dict, index=[0])
 
     return ads_df
+
+
+def collectBrokenLinks(featureUrl, payload, headers):
+    r = requests.post(
+        featureUrl,
+        data=json.dumps(payload),
+        headers=headers
+        )
+
+    deadLinks = json.loads(str(r.text))
+    deadLinks_dict = {'url': payload['url'],'goodOutLinks': deadLinks['SUCCESS'], 'badOutLinks': deadLinks['FAIL'], 'redirectOutLinks': deadLinks['REDIRECT']}
+    deadLinks_df = pd.DataFrame(deadLinks_dict, index=[0])
+
+    return deadLinks_df

@@ -21,17 +21,21 @@ def hello():
     url = json.loads(request.data)['url']
     page = requests.get(url)
     payload = {
-#        "HTML":page.text,
+        "html": page.text,
         "url": str(url)
         }
+        
+    # print payload
 
     headers = {"Content-Type": "application/json"}
 
-    # alexa data frame
+    brokenlinks = collectBrokenLinks(DEADLINKS, payload, headers)
+    print brokenlinks
     alexa = collectAlexaFeatures(ALEXA, payload, headers)
     ads = collectNumberOfAdverts(ADCOUNT, payload, headers)
-    print(alexa)
-    print(ads)
+
+    # print(alexa)
+    # print(ads)
 
     # join all data frames together, using URL as the key (or just colbind...)
 
